@@ -13,4 +13,10 @@ const MONTHS = {
     12: 'Dez',
 };
 
-module.exports = MONTHS;
+const PUBLISHERS = {
+    JBC: 'jbc',
+    NEW_POP: 'newpop',
+    PANINI: 'panini',
+}
+
+module.exports = { MONTHS, PUBLISHERS };

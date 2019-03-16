@@ -2,7 +2,7 @@
   "name": "checkproj2_web_scrapper",
   "version": "1.0.0",
   "description": "Back end for CheckProj2 project",
-  "main": "jbcScrapper.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

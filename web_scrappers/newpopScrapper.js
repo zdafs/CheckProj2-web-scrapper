@@ -1,11 +1,9 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
-const saveInMonth = require('./saveInMonth');
+const saveInMonth = require('./utils/saveInMonth');
 
-const url = process.argv[2];
-const month = process.argv[3];
-
-rp(url)
+const newpopScrapper = (url, month) =>
+    rp(url)
     .then((html) => {
         const selector = $('div[id^="attachment"] > p', html);
         const length = selector.length;
@@ -18,3 +16,5 @@ rp(url)
     .catch((err) => {
         console.log(err);
     });
+
+module.exports = newpopScrapper;

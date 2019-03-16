@@ -1,9 +1,7 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
-const saveInMonth = require('./saveInMonth');
+const saveInMonth = require('./utils/saveInMonth');
 
-let url = process.argv[2];
-const month = process.argv[3];
 const baseUrl = 'https://loja.panini.com.br';
 
 const addMangasToArray = (mangas, html) => {
@@ -15,7 +13,8 @@ const addMangasToArray = (mangas, html) => {
     }
 };
 
-rp(url)
+const paniniScrapper = (url, month) =>
+    rp(url)
     .then((html) => {
         const urls = [url]
 
@@ -50,3 +49,5 @@ rp(url)
     .catch((err) => {
         console.log(err);
     });
+
+module.exports = paniniScrapper;

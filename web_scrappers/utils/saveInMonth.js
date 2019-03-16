@@ -1,5 +1,5 @@
 const fs = require('fs');
-const MONTHS = require('./constants');
+const { MONTHS } = require('../../constants');
 
 const saveInMonth = (mangas, month) => {
     const file = fs.createWriteStream(`checklists/${MONTHS[month]}.txt`, {flags: 'a'});
