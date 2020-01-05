@@ -9,7 +9,11 @@
   "author": "Lucca Carvalho",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^3.0.0",
     "cheerio": "^1.0.0-rc.2",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.4",
+    "inquirer": "^7.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }
