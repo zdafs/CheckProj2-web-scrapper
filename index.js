@@ -1,31 +1,28 @@
-// const { jbcScrapper, newpopScrapper, paniniScrapper } = require('./web_scrappers');
-const { MONTHS, PUBLISHERS } = require('./constants');
-
-// const publisher = process.argv[2];
-// const url = process.argv[3];
-// const month = process.argv[4];
-
-// scrapperFunctions = {};
-// scrapperFunctions[PUBLISHERS.JBC] = jbcScrapper;
-// scrapperFunctions[PUBLISHERS.NEW_POP] = newpopScrapper;
-// scrapperFunctions[PUBLISHERS.PANINI] = paniniScrapper;
-
-// scrapperFunctions[publisher](url, month);
-
 const clear = require('clear');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const inquirer = require('inquirer');
 
-const validURL = (str) => {
-  const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return !!pattern.test(str);
-}
+const { jbcScrapper, newpopScrapper, paniniScrapper } = require('./web_scrappers');
+const { MONTHS, PUBLISHERS } = require('./constants');
+
+const scrapperFunctions = {
+  [PUBLISHERS.JBC]: jbcScrapper,
+  [PUBLISHERS.NEW_POP]: newpopScrapper,
+  [PUBLISHERS.PANINI]: paniniScrapper,
+};
+
+// TODO: MAKE QUERY STRING ACCEPT PIPE
+
+// const validURL = (str) => {
+//   const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+//     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+//     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+//     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+//     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+//     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+//   return !!pattern.test(str);
+// }
 
 const questions = [
   {
@@ -106,12 +103,12 @@ const questions = [
     name: 'url',
     type: 'input',
     message: "What's the checklist URL?",
-    validate: (value) => {
-      if (value.length && validURL(value)) {
-        return true;
-      }
-      return 'Please enter a valid URL.';
-    }
+    // validate: (value) => {
+    //   if (value.length && validURL(value)) {
+    //     return true;
+    //   }
+    //   return 'Please enter a valid URL.';
+    // }
   },
 ];
 
@@ -126,6 +123,9 @@ const run = async () => {
   
   const answers = await inquirer.prompt(questions);
   console.log(answers);
+
+  const { publisher, month, url } = answers;
+  scrapperFunctions[publisher](url, month);
 };
 
 run();
